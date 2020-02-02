@@ -1,14 +1,37 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 const PORT = 3000
+const connection = require('./database/database')
+
+
+//View Engine (EJS)
+app.set('view engine', 'ejs')
+
+// Static Files
+app.use(express.static('public'))
+
+
+//Body Parser
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// Database
+connection
+    .authenticate()
+    .then(() => {
+        console.log('Conectado com sucesso!')
+    })
+    .catch((error) => {
+        console.log('Erro ao conectar' + error)
+    })
 
 
 
 
-
-
+// Rotas
 app.get('/', (req, res) => {
-    res.send("Inicial")
+    res.render('index')
 })
 
 
