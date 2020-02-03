@@ -5,6 +5,12 @@ const PORT = 3000
 const connection = require('./database/database')
 
 
+const categoriesController = require('./categories/CategoriesController')
+const articlesController = require('./articles/ArticlesController')
+
+const Article = require('./articles/Article')
+const Category = require('./categories/Category')
+
 //View Engine (EJS)
 app.set('view engine', 'ejs')
 
@@ -27,7 +33,8 @@ connection
     })
 
 
-
+app.use('/', categoriesController)
+app.use('/', articlesController)
 
 // Rotas
 app.get('/', (req, res) => {
