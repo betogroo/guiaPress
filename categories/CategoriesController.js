@@ -5,12 +5,14 @@ const slugify = require('slugify')
 const Category = require('./Category')
 
 
-router.get('/categories', (req, res) => {
-    res.send('Rotas de Categorias')
-})
+
 
 router.get('/admin/categories/new', (req, res) => {
-    res.render('admin/categories/new')
+    Category.findAll().then(categories=>{
+        res.render('admin/categories/new', {categories: categories})
+    })
+    
+    
 })
 
 router.post('/categories/save', (req, res) => {

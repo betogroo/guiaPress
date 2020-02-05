@@ -41,8 +41,34 @@ router.get('/admin/articles', (req, res)=>{
     Article.findAll({
         include: [{model: Category}]
     }).then(articles =>{
-        res.render('admin/articles/index', {articles: articles})
+        console.log(articles)
+        res.render('admin/articles/index',{
+            articles: articles
+        })
+        
     })
+    })
+
+    router.post('/articles/delete',(req, res)=>{
+        var id = req.body.id
+        
+        if (id != undefined) {
+           if (!isNaN(id)) {
+               Article.destroy({
+                   where: {id: id}
+               }).then(()=>{
+                
+                res.redirect('/admin/articles')
+               })
+           } else {
+               
+            res.redirect('/admin/articles')
+    
+           }
+        } else {
+            console.log(id)
+            res.redirect('/admin/articles')
+        }
     })
 
 

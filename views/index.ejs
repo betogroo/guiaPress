@@ -2,7 +2,24 @@
 <%- include ('partials/navbar.ejs') -%>
 
 <div class="container">
-    <h1>Guia Press</h1>
+    <div class="jumbotron">
+        <h1 class="display-4">Blog do Node Press</h1>
+        <p class="lead">Blog desenvolvido em Node.js + Mysql.</p>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Cadastre-se</a>
+      </div>
+    <% articles.forEach(article => { %>
+     
+
+    <div class="card">
+        <div class="card-header"><h3><%= article.title %> </h3></div>
+        <div class="card-body">
+            <a href="/article/<%= article.slug %> " class="btn btn-success">Ler Artigo</a>
+        </div>
+    </div>
+
+    <% }) %>
+    
 </div>
 
 

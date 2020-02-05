@@ -38,8 +38,66 @@ app.use('/', articlesController)
 
 // Rotas
 app.get('/', (req, res) => {
-    res.render('index')
+    
+    Article.findAll({
+        order: [['id', 'DESC']]
+    }).then(articles=>{
+        Category.findAll().then(categories=>{
+            res.render('index', {
+                articles: articles,
+                categories: categories
+            })
+        })
+        
+    })
+    
 })
+
+app.get('/article/:slug', (req, res)=>{
+    var slug = req.params.slug
+    Article.findOne(
+        {where: {
+            slug: slug
+        }}
+    ).then(
+        article =>{
+            Category.findAll().then(categories=>{
+                if (article != undefined) {
+                    res.render('article', {
+                        article: article,
+                        categories, categories
+                    })
+                } else {
+                    res.redirect('/')
+                }
+            })
+            
+        }
+    ).catch()
+})
+
+app.get('/categories', (req, res) => {
+    Category.findAll().then(categories=>{
+        res.render('categories', {categories: categories})
+    })
+})
+
+app.get('/category/:slug', (req, res)=>{
+    var slug = req.params.slug
+        Article.findAll({
+            include: Category,
+            where: {
+                '$category.slug$': slug
+            }
+            
+        }).then(articles=>{
+            
+            res.render('category', {
+                articles: articles
+            })
+        })
+})
+
 
 
 

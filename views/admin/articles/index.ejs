@@ -18,21 +18,20 @@
            
              
             <% articles.forEach(article => { %>
-            
                 <tr>
                     <th><%=article.id%></th>
                     <th><%=article.title  %></th>
                     <th><%=article.slug  %></th>
-                    <th><%=article.category.title%></th>
+                    <th><%=article.category.title %></th>
                     
                     
                     
     
                     <th>
                         <a href="/admin/article/edit/" class="btn btn-warning">Editar</a>
-                        <form action="/article/delete" method="post" style="display: inline" onsubmit="deleteConfirm(event, this)">
+                        <form action="/articles/delete" method="post" style="display: inline" onsubmit="deleteConfirm(event, this)">
                             <button  class="btn btn-danger" type="submit">Excluir</button>
-                            <input type="hidden" value="" name="id">
+                            <input type="hidden" value="<%= article.id %> " name="id">
                         </form>
                     
                     </th>

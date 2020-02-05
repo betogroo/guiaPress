@@ -1,6 +1,6 @@
 function deleteConfirm(event, form){
     event.preventDefault()
-    var decision = confirm("Realmente deletar esta categoria?")
+    var decision = confirm("Realmente gostaria de DELETAR?")
     if(decision){
         form.submit()
     }
@@ -8,7 +8,7 @@ function deleteConfirm(event, form){
 
 function editConfirm(event, form){
     event.preventDefault()
-    var decision = confirm("Realmente renomear esta categoria?")
+    var decision = confirm("Realmente gostaria de EDITAR este campo?")
     if(decision){
         form.submit()
     }
