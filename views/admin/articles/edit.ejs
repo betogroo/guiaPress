@@ -1,0 +1,42 @@
+<%- include ('../../partials/header.ejs') -%>
+<%- include ('../../partials/navbar.ejs') -%>
+
+<div class="container">
+    <div class="card mx-auto pt-1 w-75">
+        <div class="card-header mx-2">
+            <h2>Edição de Arquivos</h2>
+        </div>
+        <div class="card card-body m-2">
+            <form action="/articles/update" method="post" onsubmit="editConfirm(event, this)">
+            <input type="hidden" name="id" value="<%= article.id %>">          
+                <label for="title">Título</label>
+                <input type="text" name="title" class="form-control" value="<%=article.title%>">
+                <label for="categoria">Categoria</label>
+                <select name="idCategory" class="form-control">
+
+                    <option value="<%=article.category.id%>"><%=article.category.title%></option>
+                    <% categories.forEach(category => { %>
+                    <option value="<%=category.id%>"><%=category.title%></option>
+                    <% }) %>
+
+                </select>
+                <label for="body">Escreva seu artigo no editor abaixo:</label>
+                <textarea id="article" placeholder="Escreva aqui p arrtigo" name="body" cols="15" rows="5"
+                    class="form-control"><%-article.body%> </textarea>
+                <button type="submit" class="btn btn-success my-2">Editar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script> tinymce.init({
+        selector: '#article',
+        language: 'pt-BR',
+        plugins: [
+            'advlist autolink emoticons link image lists print preview hr searchrepalce wordcount save table paste'
+        ]
+    })</script>
+<%- include ('../../partials/footer.ejs') -%>

@@ -85,9 +85,9 @@ router.post('/categories/update', (req, res)=>{
     {where: {
         id: id
     }
-}).then(()=>[
+}).then(()=>{
     res.redirect('/admin/categories')
-])
+})
 })
 
 

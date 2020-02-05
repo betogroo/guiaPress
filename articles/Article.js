@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+const { Sequelize } = require('sequelize')
 const connection = require('../database/database')
 
 const Category = require('../categories/Category')
