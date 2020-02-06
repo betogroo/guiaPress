@@ -45,6 +45,7 @@ router.get('/admin/articles', (req, res) => {
         res.render('admin/articles/index', {
             articles: articles
         })
+        
 
     })
 })
@@ -111,6 +112,43 @@ router.post('/articles/update', (req, res)=>{
     res.redirect('/admin/articles')
     })
 })
+
+router.get('/articles/page/:num', (req, res)=>{
+    var page = req.params.num
+    var limit = 4
+    var offset = 0
+
+    if (isNaN(page) || page == 1){
+        offset = 0
+    }else{
+        offset = (parseInt(page) -1) * limit
+    }
+    Article.findAndCountAll({
+        order: [['id', 'DESC']],
+        limit: limit,
+        offset: offset
+    }).then(articles =>{
+
+        var next
+        if ((offset + limit) >= articles.count) {
+            next = false
+        } else {
+            next = true
+        }
+
+        var result= {
+            page: parseInt(page),
+            next: next,
+            articles: articles
+        }
+
+        res.render('admin/articles/page', {result: result})
+        //res.json(result)
+
+    })
+})
+
+
 
 
 

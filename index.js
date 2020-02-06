@@ -7,6 +7,7 @@ const connection = require('./database/database')
 
 const categoriesController = require('./categories/CategoriesController')
 const articlesController = require('./articles/ArticlesController')
+const userController = require('./user/UserController')
 
 const Article = require('./articles/Article')
 const Category = require('./categories/Category')
@@ -35,12 +36,14 @@ connection
 
 app.use('/', categoriesController)
 app.use('/', articlesController)
+app.use('/', userController)
 
 // Rotas
 app.get('/', (req, res) => {
     
     Article.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'DESC']],
+        limit: 4
     }).then(articles=>{
         Category.findAll().then(categories=>{
             res.render('index', {
